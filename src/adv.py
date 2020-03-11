@@ -1,5 +1,6 @@
+import time
 from room import Room
-
+from player import Player
 # Declare all the rooms
 
 room = {
@@ -38,14 +39,47 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-
+player = Player(input("What is your name, brave soul : "), room['outside'])
+# player = input("What is your name, brave soul : "), room['outside']
+# print(player)
 # Write a loop that:
-#
-# * Prints the current room name
+# player_cmd = ""
+# while player_cmd not in ():
+while True:
+    # * Prints the current room name
+    time.sleep(1)
+    current_room = player.current_room
+    print(f"location:  *** {current_room.area} ***")
+    time.sleep(2)
 # * Prints the current description (the textwrap module might be useful here).
+    print(f"*** {current_room.description} ***")
+    time.sleep(2.5)
 # * Waits for user input and decides what to do.
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
+    move = input("Enter The Direction you would like to travel : ")
+    if move == "n":
+        if current_room.n_to is not None:
+            player.current_room = current_room.n_to
+        else:
+            print("Can't go that way silly")
+    elif move == "s":
+        if current_room.s_to is not None:
+            player.current_room = current_room.s_to
+        else:
+            print("Can't go that way silly")
+    elif move == "e":
+        if current_room.e_to is not None:
+            player.current_room = current_room.e_to
+        else:
+            print("Can't go that way silly")
+    elif move == "w":
+        if current_room.w_to is not None:
+            player.current_room = current_room.w_to
+        else:
+            print("Can't go that way silly")
+        # If the user enters "q", quit the game.
+    elif move == "q":
+        print("Thank you for playing! Good Bye!")
+        exit()
+    else:
+        # Print an error message if the movement isn't allowed.
+        print("Not a valid move. Please enter: n, s, e, w or q")
